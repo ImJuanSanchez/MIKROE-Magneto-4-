@@ -10,13 +10,13 @@
  *
  * The demo application is composed of two sections :
  * 
- * ## Application Init 
+ * ## Application Setup 
  * Initializes Driver init and sets start encoder position on the zero.
  * Reads and logs magnetic field strength values.
  * For starting an encoder, it is necessary that the magnetic field strength 
  * is greater than 3000.
  * 
- * ## Application Task  
+ * ## Application Loop  
  * When moving the sensor from left to right, one step is added 
  * and when moving from right to left, the position for 1 step is reduced.
  * 
@@ -28,35 +28,24 @@
 //#include "board.h"
 //#include "log.h"
 #include "magneto4.h"
-
+#include <stdio.h>
 // ------------------------------------------------------------------ VARIABLES
 
 static magneto4_t magneto4;
-static log_t logger;
-
-static int32_t enc_position;
-static int32_t old_position = 255;
-static int16_t magnetic_field = 0;
+static int enc_position;
+static int old_position = 255;
+static int magnetic_field = 0;
 
 // ------------------------------------------------------ APPLICATION FUNCTIONS
 
-void application_init ( void )
+void application_setup ( void )
 {
-    log_cfg_t log_cfg;
+    //_cfg_t log_cfg;
     magneto4_cfg_t cfg;
 
-    /** 
-     * Logger initialization.
-     * Default baud rate: 115200
-     * Default log level: LOG_LEVEL_DEBUG
-     * @note If USB_UART_RX and USB_UART_TX 
-     * are defined as HAL_PIN_NC, you will 
-     * need to define them manually for log to work. 
-     * See @b LOG_MAP_USB_UART macro definition for detailed explanation.
-     */
-    LOG_MAP_USB_UART( log_cfg );
-    log_init( &logger, &log_cfg );
-    log_info( &logger, "---- Application Init ----" );
+    printf("---- USB_UART Passed ----\n" );
+    printf("---- Log Init Passed ----\n" );
+    printf("---- Application Init ----\n" );
 
     //  Click initialization.
 
@@ -66,20 +55,25 @@ void application_init ( void )
     
     magneto4_default_cfg ( &magneto4 );
     
-    log_printf( &logger, " --- Please, bring the magnet close ---\r\n" );
+    printf(" --- Please, bring the magnet close ---\n" );
 
     while ( magnetic_field < MAGNETO4_MAX_MAGNETIC_FIELD_VALUE )
     {
         magnetic_field = magneto4_get_magnetic_field( &magneto4 );
-        log_printf( &logger, " Magnetic field strength : %d\r\n", magnetic_field );
-        Delay_ms( 1000 );
+        printf(" Magnetic field strength : %d\n", magnetic_field );
+        //Delay( 1000 );
+        printf(" --- Delay 1s ---\n" );
     }
     
-    Delay_ms( 1500 );
-    log_printf( &logger, " --- Magnetic Linear Position ---\r\n" );
+    //Delay( 1500 );
+    printf( " --- Magnetic Linear Position ---\n" );
 }
 
-void application_task ( void )
+
+
+
+
+void application_loop ( void )
 {
     //  Task implementation.
     
@@ -89,20 +83,25 @@ void application_task ( void )
 
     if ( old_position != enc_position )
     {
-        log_printf( &logger, " Encoder position : %d\r\n", enc_position );
-        log_printf( &logger, " ------------------------\r\n" );
+        printf( " Encoder position : %d\n", enc_position );
+        printf(" ------------------------\n" );
     }
     
     old_position = enc_position;
 }
 
-void main ( void )
+
+
+
+
+void main ( int argc, const char * argv[] )
 {
-    application_init( );
+    application_setup( );
 
     for ( ; ; )
     {
-        application_task( );
+        application_loop( );
     }
+    return 0;
 }
 

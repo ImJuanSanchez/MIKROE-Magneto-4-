@@ -35,9 +35,9 @@
 #ifndef MAGNETO4_H
 #define MAGNETO4_H
 
-#include "drv_digital_out.h"
-#include "drv_digital_in.h"
-#include "drv_spi_master.h"
+//#include "drv_digital_out.h"
+//#include "drv_digital_in.h"
+//#include "drv_spi_master.h"
 
 
 // -------------------------------------------------------------- PUBLIC MACROS 
@@ -101,23 +101,23 @@ typedef struct
 
     // Input pins 
 
-    digital_in_t a;
-    digital_in_t b;
-    digital_in_t pwm;
-    digital_in_t ind;
+    int a_in;
+    int b_in;
+    int pwm_in;
+    int ind_in;
     
     // Modules 
 
-    spi_master_t spi;
-    pin_name_t chip_select;
+    int spi_module;
+    int chip_select_module;
 
     // ctx variable
     
-    int32_t encoder_position;
-    uint8_t a_edge;
-    uint8_t b_edge;
-    uint8_t state_a;
-    uint8_t state_b;
+    int encoder_position;
+    int a_edge;
+    int b_edge;
+    int state_a;
+    int state_b;
 
 } magneto4_t;
 
@@ -128,23 +128,23 @@ typedef struct
 {
     // Communication gpio pins 
 
-    pin_name_t miso;
-    pin_name_t mosi;
-    pin_name_t sck;
-    pin_name_t cs;
+    int miso;
+    int mosi;
+    int sck;
+    int cs;
 
     // Additional gpio pins 
 
-    pin_name_t a;
-    pin_name_t b;
-    pin_name_t pwm;
-    pin_name_t ind;
+    int a_gpio_pin;
+    int b_gpio_pin;
+    int pwm_gpio_pin;
+    int ind_gpio_pin;
 
     // static variable 
 
-    uint32_t spi_speed;
-    uint8_t spi_mode;
-    spi_master_chip_select_polarity_t cs_polarity;
+    int spi_speed;
+    int spi_mode;
+    int cs_polarity;
 
 } magneto4_cfg_t;
 
@@ -153,11 +153,11 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t dec_val;
-    uint8_t inc_val;
-    uint8_t lin_val;
-    uint8_t cof_val;
-    uint8_t ocf_val;
+    int dec_val;
+    int inc_val;
+    int lin_val;
+    int cof_val;
+    int ocf_val;
 
 } mag_status_t;
 
@@ -201,7 +201,7 @@ MAGNETO4_RETVAL magneto4_init ( magneto4_t *ctx, magneto4_cfg_t *cfg );
  * @note Set start encoder position to zero position and
  * first read of magnetic field strength. 
  */
-void magneto4_default_cfg ( magneto4_t *ctx );
+//void magneto4_default_cfg ( magneto4_t *ctx );
 
 /**
  * @brief Generic transfer function.
@@ -214,11 +214,11 @@ void magneto4_default_cfg ( magneto4_t *ctx );
  *
  * @description Generic SPI transfer, for sending and receiving packages
  */
-void magneto4_generic_transfer 
+//void magneto4_generic_transfer 
 ( 
-    magneto4_t *ctx, 
-    uint8_t *rd_buf, 
-    uint16_t rd_len 
+   // magneto4_t *ctx, 
+   // uint8_t *rd_buf, 
+   // uint16_t rd_len 
 );
 
 /**
@@ -234,7 +234,7 @@ void magneto4_generic_transfer
  * 
  * @description Functions for get A ( AN ) pin status.
  */
-uint8_t magneto4_get_out_a ( magneto4_t *ctx );
+//int magneto4_get_out_a ( magneto4_t *ctx );
 
 /**
  * @brief Get B ( RST ) pin status.
@@ -249,7 +249,7 @@ uint8_t magneto4_get_out_a ( magneto4_t *ctx );
  * 
  * @description Functions for get B ( RST ) pin status. 
  */
-uint8_t magneto4_get_out_b ( magneto4_t *ctx );
+//int magneto4_get_out_b ( magneto4_t *ctx );
 
 /**
  * @brief Get IND ( interrupt ) pin status.
@@ -264,7 +264,7 @@ uint8_t magneto4_get_out_b ( magneto4_t *ctx );
  * 
  * @description Functions for get IND ( interrupt ) pin status. 
  */
-uint8_t magneto4_get_index ( magneto4_t *ctx );
+//int magneto4_get_index ( magneto4_t *ctx );
 
 /**
  * @brief Measurement function
@@ -275,7 +275,7 @@ uint8_t magneto4_get_index ( magneto4_t *ctx );
  *
  * @description This function reading 24-bit data from the SPI.
  */
-uint32_t magneto4_start_measurement ( magneto4_t *ctx );
+//int magneto4_start_measurement ( magneto4_t *ctx );
 
 /**
  * @brief Measurement Field
@@ -287,7 +287,7 @@ uint32_t magneto4_start_measurement ( magneto4_t *ctx );
  * @description This function measure magnetic field strength.
  * Use this function to detect the presence of a magnet.
  */
-uint16_t magneto4_get_magnetic_field ( magneto4_t *ctx );
+int magneto4_get_magnetic_field ( magneto4_t *ctx );
 
 /**
  * @brief Get Magnetic measurement status
@@ -299,7 +299,7 @@ uint16_t magneto4_get_magnetic_field ( magneto4_t *ctx );
  * 
  * @description This function gets magnetic measurement status data. 
  */
-uint8_t magneto4_get_magnetic_status ( magneto4_t *ctx, mag_status_t *mag_status );
+int magneto4_get_magnetic_status ( magneto4_t *ctx, mag_status_t *mag_status );
 
 /**
  * @brief Encoder direction
@@ -315,7 +315,7 @@ uint8_t magneto4_get_magnetic_status ( magneto4_t *ctx, mag_status_t *mag_status
  *
  * @description This function gives you information on the direction of the magnet movement.
  */
-uint8_t magneto4_get_encoder_direction ( magneto4_t *ctx, mag_status_t *mag_status );
+//int magneto4_get_encoder_direction ( magneto4_t *ctx, mag_status_t *mag_status );
 
 /**
  * @brief Encoder position
@@ -337,7 +337,7 @@ void magneto4_get_encoder_position ( magneto4_t *ctx );
  * @description Use this function to set the start position of the encoder.
  * If this function is not called - the start position encoder will be 0.
  */
-void magneto4_set_start_position ( magneto4_t *ctx, int32_t encoder_pos );
+//void magneto4_set_start_position ( magneto4_t *ctx, int32_t encoder_pos );
 
 #ifdef __cplusplus
 }

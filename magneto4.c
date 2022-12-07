@@ -125,7 +125,7 @@ void magneto4_default_cfg ( magneto4_t *ctx )
     magneto4_start_measurement( ctx );
 }
 
-void magneto4_generic_transfer 
+/*void magneto4_generic_transfer 
 ( 
     magneto4_t *ctx,
     uint8_t *rd_buf, 
@@ -151,8 +151,8 @@ uint8_t magneto4_get_index ( magneto4_t *ctx )
 {
     return digital_in_read( &ctx->ind );
 }
-
-uint32_t magneto4_start_measurement ( magneto4_t *ctx )
+*/
+/*int magneto4_start_measurement ( magneto4_t *ctx )
 {
     uint8_t rx_buf[ 3 ];
     uint32_t res_val = 0;
@@ -166,12 +166,12 @@ uint32_t magneto4_start_measurement ( magneto4_t *ctx )
     res_val |= rx_buf[ 2 ];
     
     return res_val;
-}
+}*/
 
-uint16_t magneto4_get_magnetic_field ( magneto4_t *ctx )
+int magneto4_get_magnetic_field ( magneto4_t *ctx )
 {
-    uint16_t magnetic_data;
-    uint32_t raw_data = 0;
+    int magnetic_data;
+    int raw_data = 0;
     
     raw_data = magneto4_start_measurement( ctx );
     
@@ -181,7 +181,7 @@ uint16_t magneto4_get_magnetic_field ( magneto4_t *ctx )
     return magnetic_data;
 }
 
-uint8_t magneto4_get_magnetic_status ( magneto4_t *ctx, mag_status_t *mag_status )
+/*int magneto4_get_magnetic_status ( magneto4_t *ctx, mag_status_t *mag_status )
 {
     uint16_t error_code;
     uint32_t raw_value;
@@ -198,9 +198,9 @@ uint8_t magneto4_get_magnetic_status ( magneto4_t *ctx, mag_status_t *mag_status
     mag_status->ocf_val  = error_code & MAGNETO_STATUS_BIT_5;
   
     return error_code;
-}
+}*/
 
-uint8_t magneto4_get_encoder_direction ( magneto4_t *ctx )
+/*int magneto4_get_encoder_direction ( magneto4_t *ctx )
 {
     // Detected change on ENCA
     
@@ -313,7 +313,7 @@ uint8_t magneto4_get_encoder_direction ( magneto4_t *ctx )
     }
     
     return MAGNETO4_NO_MOVEMENT;
-}
+}*/
 
 void magneto4_get_encoder_position ( magneto4_t *ctx )
 {
@@ -337,12 +337,12 @@ void magneto4_get_encoder_position ( magneto4_t *ctx )
     }
 }
 
-void magneto4_set_start_position ( magneto4_t *ctx, int32_t encoder_pos )
+/*void magneto4_set_start_position ( magneto4_t *ctx, int32_t encoder_pos )
 {
     ctx->encoder_position = encoder_pos;
     ctx->state_a = MAGNETO4_START_STATE_PIN_A;
     ctx->state_b = MAGNETO4_START_STATE_PIN_B;
-}
+}/*
 
 
 // ------------------------------------------------------------------------- END
