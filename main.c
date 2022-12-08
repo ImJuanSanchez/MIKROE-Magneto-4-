@@ -50,7 +50,7 @@ void application_setup ( void )
     //  Click initialization.
 
     magneto4_cfg_setup( &cfg );
-    MAGNETO4_MAP_MIKROBUS( cfg, MIKROBUS_1 );
+  //MAGNETO4_MAP_MIKROBUS( cfg, MIKROBUS_1 );
     magneto4_init( &magneto4, &cfg );
     
     magneto4_default_cfg ( &magneto4 );
@@ -102,6 +102,6 @@ void main ( int argc, const char * argv[] )
     {
         application_loop( );
     }
-    return 0;
+    return ;
 }
 

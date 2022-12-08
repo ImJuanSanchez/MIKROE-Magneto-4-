@@ -1,55 +1,10 @@
-/*
- * MikroSDK - MikroE Software Development Kit
- * Copyright© 2020 MikroElektronika d.o.o.
- * 
- * Permission is hereby granted, free of charge, to any person 
- * obtaining a copy of this software and associated documentation 
- * files (the "Software"), to deal in the Software without restriction, 
- * including without limitation the rights to use, copy, modify, merge, 
- * publish, distribute, sublicense, and/or sell copies of the Software, 
- * and to permit persons to whom the Software is furnished to do so, 
- * subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be 
- * included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
- * OR OTHER DEALINGS IN THE SOFTWARE. 
- */
+#ifndef LIBAUX_H_INCLUDED
+#define LIBAUX_H_INCLUDED
+#include <Arduino.h>
 
-/*!
- * \file
- *
- * \brief This file contains API for MAGNETO 4 Click driver.
- *
- * \addtogroup magneto4 MAGNETO 4 Click Driver
- * @{
- */
-// ----------------------------------------------------------------------------
-
-#ifndef MAGNETO4_H
-#define MAGNETO4_H
-
-//#include "drv_digital_out.h"
-//#include "drv_digital_in.h"
-//#include "drv_spi_master.h"
-
-
-// -------------------------------------------------------------- PUBLIC MACROS 
-/**
- * \defgroup macros Macros
- * \{
- */
-
-/**
- * \defgroup map_mikrobus MikroBUS
- * \{
- */
+#ifdef __cplusplus
+ extern "C" {
+#endif
 
 #define MAGNETO4_MAP_MIKROBUS( cfg, mikrobus )      \
    cfg.miso  = MIKROBUS( mikrobus, MIKROBUS_MISO ); \
@@ -347,3 +302,8 @@ void magneto4_get_encoder_position ( magneto4_t *ctx );
 /// \}    // End click Driver group  
 /*! @} */
 // ------------------------------------------------------------------------- END
+
+#ifdef __cplusplus
+}
+#endif
+

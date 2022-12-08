@@ -1,35 +1,5 @@
-/*
- * MikroSDK - MikroE Software Development Kit
- * Copyright© 2020 MikroElektronika d.o.o.
- * 
- * Permission is hereby granted, free of charge, to any person 
- * obtaining a copy of this software and associated documentation 
- * files (the "Software"), to deal in the Software without restriction, 
- * including without limitation the rights to use, copy, modify, merge, 
- * publish, distribute, sublicense, and/or sell copies of the Software, 
- * and to permit persons to whom the Software is furnished to do so, 
- * subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be 
- * included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
- * OR OTHER DEALINGS IN THE SOFTWARE. 
- */
 
-/*!
- * \file
- *
- */
-
-#include "magneto4.h"
-
-// ------------------------------------------------------------- PRIVATE MACROS 
+#include "libaux.h"
 
 #define MAGNETO4_DUMMY 0
 
@@ -173,7 +143,7 @@ int magneto4_get_magnetic_field ( magneto4_t *ctx )
     int magnetic_data;
     int raw_data = 0;
     
-    raw_data = magneto4_start_measurement( ctx );
+   // raw_data = magneto4_start_measurement( ctx );
     
     magnetic_data = ( int ) ( raw_data >> 6 );
     magnetic_data &= MAGNETO_FIRST_BIT_12;
@@ -315,12 +285,12 @@ int magneto4_get_magnetic_field ( magneto4_t *ctx )
     return MAGNETO4_NO_MOVEMENT;
 }*/
 
-void magneto4_get_encoder_position (  )
+void magneto4_get_encoder_position ( magneto4_t *ctx )
 {
     int encoder_dir;
     int index;
      
-    encoder_dir = magneto4_get_encoder_direction(  );
+    encoder_dir = magneto4_get_encoder_direction( ctx  );
     
     index = magneto4_get_index( ctx );
      
@@ -338,4 +308,6 @@ void magneto4_get_encoder_position (  )
 }
 
 
-// ------------------------------------------------------------------------- END
+// ------------------------------------------
+
+
